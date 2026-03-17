@@ -8,4 +8,4 @@
 - [x] Step 5: Data Layer Implementation (Data層/SQLite等実装)
 - [x] Step 6: FastAPI Implementation (FastAPI実装)
 - [x] Step 7: Local Startup Guide (ローカル起動手順)
-- [ ] Step 8: Firebase Migration Strategy (Firebase移行方法)
+- [x] Step 8: Firebase Migration Strategy (Firebase移行方法)

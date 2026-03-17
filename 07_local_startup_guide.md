@@ -42,12 +42,12 @@ uvicorn app.main:app --reload
 
 サーバーが立ち上がったら、Flutterから繋ぐ前にAPI単体で正しく動くか確認します。
 
-**ブラウザでの確認 (自動生成ドキュメント - Swagger UI)**
+"ブラウザでの確認 (自動生成ドキュメント - Swagger UI)"
 ブラウザで以下のURLにアクセスしてください。対話的なAPIドキュメントが表示されます。
-*   http://localhost:8000/docs
-*(ここで `/api/v1/analyze` メソッドを開き、「Try it out」から直接リクエストを送ってテストすることも可能です)*
+   http://localhost:8000/docs
+   (ここで `/api/v1/analyze` メソッドを開き、「Try it out」から直接リクエストを送ってテストすることも可能です)
 
-**curlによるテスト**
+"curlによるテスト"
 別のターミナルを開き、以下のコマンドをそのままコピー＆ペーストして実行してください。
 
 ```bash
@@ -66,7 +66,7 @@ curl -X 'POST' \
 }'
 ```
 
-**正常レスポンス例**
+"正常レスポンス例"
 異常なデータがフィルタされず、正しく統計・分析された結果が以下のように返ってくれば成功です。
 ```json
 {
@@ -90,7 +90,7 @@ curl -X 'POST' \
 
 FlutterアプリからローカルのFastAPIへリクエストを送信する際、使用するシミュレータ・エミュレータによって**接続先URL（Host）**が異なります。ここが一番のハマりポイントです。
 
-**1. エンドポイントの動的設定**
+"1. エンドポイントの動的設定"
 Dartコード（例: `api_client.dart` や定数ファイル）で、`Platform` に応じてURLを切り替える実装を推奨します。
 
 ```dart
@@ -110,7 +110,7 @@ String getApiBaseUrl() {
 }
 ```
 
-**2. 呼び出しの実装確認（httpパッケージの例）**
+"2. 呼び出しの実装確認（httpパッケージの例）"
 ```dart
 Future<AnalyzeResult> fetchAdviceFromRecords(List<TaskRecordEntity> records) async {
   final baseUrl = getApiBaseUrl();
@@ -124,15 +124,15 @@ Future<AnalyzeResult> fetchAdviceFromRecords(List<TaskRecordEntity> records) asy
 
 ## ④ よくあるエラーと対処
 
-*   **CORSエラー (Flutter Webでデバッグしている場合)**
-    *   **症状:** Webブラウザで実行した際、`XMLHttpRequest error` や `CORS policy` といった赤いエラーが出る。
-    *   **原因/対策:** ブラウザのセキュリティ制約です。`backend/app/main.py` に `CORSMiddleware` が設定されている必要があります。*(※今回の更新で main.py に設定済みですので、通常は発生しません)*
-*   **接続できない (SocketException / Connection Refused)**
-    *   **原因:** サーバーが起動していないか、指定しているURLが間違っています。
-    *   **対策:** Androidエミュレータを使っている場合、必ず `10.0.2.2:8000` を呼び出しているか確認してください。もし **実機（iPhone/Android）** でテストする場合は、PCのローカルIPアドレス（例: `http://192.168.1.5:8000`）を指定し、FastAPI側を `uvicorn app.main:app --host 0.0.0.0 --reload` で起動する必要があります。
-*   **JSONフォーマットエラー (422 Unprocessable Entity)**
-    *   **原因:** Flutterから送信したJSONのキー名やデータ型が、FastAPI側のモデル（例: `recordedAt`）と一致していません。
-    *   **対策:** 送信直前の `jsonEncode()` の結果を `print` し、Swagger UI (`/docs`) の成功するリクエストボディと見比べてください。
+"CORSエラー (Flutter Webでデバッグしている場合)"
+*   症状: Webブラウザで実行した際、`XMLHttpRequest error` や `CORS policy` といった赤いエラーが出る。
+*   原因/対策: ブラウザのセキュリティ制約です。`backend/app/main.py` に `CORSMiddleware` が設定されている必要があります。*(※今回の更新で main.py に設定済みですので、通常は発生しません)*
+"接続できない (SocketException / Connection Refused)"
+*   原因: サーバーが起動していないか、指定しているURLが間違っています。
+*   対策: Androidエミュレータを使っている場合、必ず `10.0.2.2:8000` を呼び出しているか確認してください。もし "実機（iPhone/Android）" でテストする場合は、PCのローカルIPアドレス（例: `http://192.168.1.5:8000`）を指定し、FastAPI側を `uvicorn app.main:app --host 0.0.0.0 --reload` で起動する必要があります。
+"JSONフォーマットエラー (422 Unprocessable Entity)"
+*   原因: Flutterから送信したJSONのキー名やデータ型が、FastAPI側のモデル（例: `recordedAt`）と一致していません。
+*   対策: 送信直前の `jsonEncode()` の結果を `print` し、Swagger UI (`/docs`) の成功するリクエストボディと見比べてください。
 
 ---
 
@@ -147,6 +147,6 @@ Future<AnalyzeResult> fetchAdviceFromRecords(List<TaskRecordEntity> records) asy
 
 ## ⑥ 開発効率を上げるTips
 
-*   **`--reload` の恩恵:** 起動コマンドに付与した `--reload` は非常に強力です。Pythonのロジック（`analyzer_service.py` など）を編集して保存するだけで、自動的にサーバーが再起動します。ターミナルで手動で再起動する必要はありません。
-*   **ログの見方:** FastAPIで何かエラー（コードの書き間違い等）が起きた場合、ターミナルに数行のエラーログ（スタックトレース）が出力されます。一番下のエラーメッセージ（例: `KeyError`, `TypeError`）を読めば原因の9割が分かります。
-*   **FastAPIのSwagger UI (`/docs`):** 新しいフィールドを追加したり判定ロジックを変えた際、わざわざFlutterを動かしてテストするのは非効率です。**必ずブラウザ上の `/docs` でテストリクエストを送り、期待したレスポンスが返ってくるか確認してから Flutter側の開発に戻る** のが、バックエンド開発の鉄則です。
+*   `--reload` の恩恵: 起動コマンドに付与した `--reload` は非常に強力です。Pythonのロジック（`analyzer_service.py` など）を編集して保存するだけで、自動的にサーバーが再起動します。ターミナルで手動で再起動する必要はありません。
+*   ログの見方: FastAPIで何かエラー（コードの書き間違い等）が起きた場合、ターミナルに数行のエラーログ（スタックトレース）が出力されます。一番下のエラーメッセージ（例: `KeyError`, `TypeError`）を読めば原因の9割が分かります。
+*   FastAPIのSwagger UI (`/docs`): 新しいフィールドを追加したり判定ロジックを変えた際、わざわざFlutterを動かしてテストするのは非効率です。必ずブラウザ上の `/docs` でテストリクエストを送り、期待したレスポンスが返ってくるか確認してから Flutter側の開発に戻る のが、バックエンド開発の鉄則です。
