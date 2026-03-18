@@ -9,3 +9,22 @@
 - [x] Step 6: FastAPI Implementation (FastAPI実装)
 - [x] Step 7: Local Startup Guide (ローカル起動手順)
 - [x] Step 8: Firebase Migration Strategy (Firebase移行方法)
+- [x] Step 9: デプロイ環境最適化
+    - [x] Render 上での環境変数整理（FIREBASE_CREDENTIALSなど）
+    - [x] 本番用設定の確認（例: --reload は不要、本番は uvicorn app.main:app --host 0.0.0.0 --port $PORT）
+    - [x] ログ管理（Render Logs）
+- [] Step 10: エンドポイントのテスト
+    - [/health](http://localhost:8000/health) や [/status](http://localhost:8000/status) など簡易テストエンドポイントを作って、正常稼働確認
+    - [] Flutter アプリから FastAPI を呼んで、データの送受信が正常か確認
+    - [] Postman などで API テスト
+- [] Step 11: 認証・セキュリティ
+    - [] Firebase Auth または JWT でユーザー認証
+    - [] FastAPI 側で認証必須ルートを設定
+    - [] HTTPS 対応（Render は自動で対応済み）
+- [] Step 12: バックグラウンドタスク / 定期処理
+    - [] Firebase からのデータ取得や分析処理を非同期で行う場合は、 Celery / FastAPI BackgroundTasks など検討
+    - [] Push通知などもここで組み込む
+- [] Step 13: モニタリング & 改善
+    - [] ユーザー行動のログ（Firebase Analytics など）
+    - [] 定期的なデータ傾向のチェック
+    - [] 必要に応じて分析アルゴリズム改善（AnalyzerService の精度向上など）
