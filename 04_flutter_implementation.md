@@ -14,10 +14,10 @@ Riverpodを用いてDomain層のRepositoryの依存関係をDI（Dependency Inje
 
 UIからのアクションを受け取り、Repositoryへ処理を委譲（オーケストレーション）し、結果をUIへ通知する役割を担います。
 
-### `app/lib/features/iap/application/premium_status_notifier.dart`
+### `app/lib/features/premium/application/premium_status_notifier.dart`
 課金状態を管理・提供するシンプルな Notifier です。
 
-> **Note**: 実装コードは `frontend/app/lib/features/iap/application/premium_status_notifier.dart` に抽出済みです。
+> **Note**: 実装コードは `frontend/app/lib/features/premium/application/premium_status_notifier.dart` に抽出済みです。
 
 ### `app/lib/features/task/application/task_notifier.dart`
 Task一覧の状態管理と、TaskRecord追加時のトランザクション的な処理（UseCase）をオーケストレーションします。

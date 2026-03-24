@@ -15,7 +15,7 @@
 - "責務": IAP（アプリ内課金）によるユーザーのプレミアム状態を表現します。
 - "拡張ポイント": 単純な boolean ではなく、有効期限や購入したProductIDを持たせることで、サブスクリプションだけでなく買い切り型や複数プランにも柔軟に対応できます。
 
-> **Note**: 実装コードは `frontend/app/lib/features/iap/domain/premium_status_entity.dart` に抽出済みです。
+> **Note**: 実装コードは `frontend/app/lib/features/premium/domain/premium_status_entity.dart` に抽出済みです。
 
 ### TaskEntity（育児タスクカテゴリ/親定義）
 - "責務": 「ミルク」「おむつ」「睡眠」などのタスクの種類そのものを定義します。
